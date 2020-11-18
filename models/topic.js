@@ -1,20 +1,28 @@
 const dbConnect = require("./db"); 
 
 
-// Créer un constructeur
-const Topic = (title) => {
-  this.title = title;
+
+module.exports = class Topic {
+
+  constructor(id, title) {
+    this.id = id; 
+    this.title = title; 
+  }
+
+  static getAll() {
+    return dbConnect.execute("SELECT * FROM topic"); 
+  }
+  static addTopic(title) {
+    return dbConnect.execute("INSERT INTO topic(title) VALUES(?)", [title]); 
+  }
+
+  static updateTopic(id, title) {
+    return dbConnect.execute("UPDATE topic SET title = ? WHERE id = ?", [title, id])
+  }
+  static delete(id) {
+    return dbConnect.execute('DELETE FROM topic WHERE id = ?', [id])
+  }
+
 }
-// Créer les méthodes du CRUD
-Topic.getAll = test => {
-  dbConnect.query("SELECT * FROM topic", (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(err);
-    }
-    console.log("topic: ", res);
-    result(res);
-  });
-};
-// Dans chaque méthodes du CRUD va se trouver une requête SQL
-module.exports = Topic; 
+
+

@@ -12,6 +12,9 @@ app.get('/', (req, res) => {
 })
 
 app.get('/topics', topicRoutes)
+app.post('/topics', topicRoutes)
+app.put('/topics/:id', topicRoutes)
+app.delete('/topics/:id', topicRoutes)
 
 app.listen(3000, () => {
   console.log("Server is runnin' on port 3000")
